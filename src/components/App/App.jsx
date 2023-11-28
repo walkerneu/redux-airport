@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 function App() {
@@ -7,16 +7,24 @@ function App() {
   // MUST BE SAME NAME USED IN INDEX.JS
   const airlineArray = useSelector((store) => store.airlineCount)
 
+
   const dispatch = useDispatch()
 
   const [airlineInput, setAirlineInput] = useState('');
+  const [planeCountInput, setPlaneCountInput] = useState('');
+
+  const airlineObject =
+    {airline: airlineInput,
+    planes: planeCountInput}
 
   const addAirline = (e) => {
     e.preventDefault()
     dispatch({
       type: "ADD_AIRLINE",
-      payload: airlineInput
+      payload: airlineObject
     })
+    setAirlineInput('')
+    setPlaneCountInput('');
   }
 
   return (
@@ -26,6 +34,9 @@ function App() {
       <input placeholder='Airline Name'
               value={airlineInput}
               onChange={(e) => setAirlineInput(e.target.value)}/>
+      <input placeholder="Number of Planes"
+            value={planeCountInput}
+            onChange={(e) => setPlaneCountInput(e.target.value)}/>
       <button>Add Airline</button>
       </form>
       <table>
@@ -39,7 +50,8 @@ function App() {
         <tbody>
         {airlineArray.map((airline) => (
           <tr>
-            <td>{airline}</td>
+            <td>{airline.airline}</td>
+            <td>{airline.planes}</td>
           </tr>
       ))}
       </tbody>

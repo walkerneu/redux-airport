@@ -12,12 +12,10 @@ import { Provider } from 'react-redux';
 const airlineCount = (state=[], action) => {
     if (action.type === "ADD_AIRLINE"){
         const newAirline = action.payload
-        
         return [...state, newAirline]
     }
     return state
 }
-
 /** TODO: Create store */
 
 const airlineStoreDutyFree = createStore(
